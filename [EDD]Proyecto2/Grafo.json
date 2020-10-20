@@ -1,0 +1,25 @@
+{
+  "Grafo":[
+    { "inicio":1,
+      "final":2,
+      "peso":3,
+      "unidad":"KM",
+      "precio": 35,
+      "moneda":"Quetzales"
+    },
+    { "inicio":1,
+      "final":3,
+      "peso":10,
+      "unidad":"KM",
+      "precio": 110,
+      "moneda":"Quetzales"
+    },
+    { "inicio":2,
+      "final":3,
+      "peso":5,
+      "unidad":"KM",
+      "precio": 50,
+      "moneda":"Quetzales"
+    }
+  ]
+}

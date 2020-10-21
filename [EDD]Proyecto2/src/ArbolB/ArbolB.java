@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @param <T>
  * @param <V>
  */
-public class ArbolB<T extends Comparable<T>,V> {
+public class ArbolB<T extends Comparable<T>, V> {
 
     private int k;
     private Pagina raiz;
@@ -59,8 +59,8 @@ public class ArbolB<T extends Comparable<T>,V> {
                     derecho.setPaginaPadre(this.raiz);
                     llavecentral.setIzquierda(izquierdo);
                     llavecentral.setDerecha(derecho);
-                } 
-            }    
+                }
+            }
         } else if (this.raiz.get(0).getIzquierda() != null) {
             Pagina node = this.raiz;
             while (node.get(0).getIzquierda() != null) {
@@ -201,28 +201,79 @@ public class ArbolB<T extends Comparable<T>,V> {
         }
         return index;
     }
-    public void Buscar(){
-        Imprimir(this.raiz);
+
+    public void Imprimir() {
+        Imprimir(this.raiz, new ArrayList<>());
     }
-    
-    private void Imprimir(Pagina actual){
-        if(actual != null){
-            for (int i = 0; i < actual.getMax(); i++) {
-            if (actual.get(i) == null) {
-                
-            }else{
-                Usuario usu = (Usuario) actual.get(i).getValor();
-                System.out.println("------");
-                System.out.println(usu.getNombre());
-                System.out.println(usu.getUsuario());
+
+    private void Imprimir(Pagina actual, ArrayList<Pagina> arr) {
+        if (actual != null) {
+            if (arr.contains(actual)) {
+                arr.remove(actual);
+                return;
+            } else {
+                arr.add(actual);
             }
-            Imprimir(actual.get(i).getIzquierda());
-            Imprimir(actual.get(i).getDerecha());
+            System.out.println("------");
+            for (int i = 0; i < actual.getMax(); i++) {
+                if (actual.get(i) != null) {
+                    Usuario usu = (Usuario) actual.get(i).getValor();
+                    System.out.println("");
+                    System.out.println(usu.getNombre());
+                    System.out.println(usu.getUsuario());
+                    if(usu.getLugar() != null){
+                        System.out.println("El lugar del usuario es:");
+                        System.out.println(usu.getLugar().getId());
+                        System.out.println(usu.getLugar().getNombre());
+                    }
+                    if(("conductor").equals(usu.getRol())){
+                        System.out.println(usu.getDisponibilidad());
+                    }
+                    Imprimir(actual.get(i).getIzquierda(), arr);
+                    Imprimir(actual.get(i).getDerecha(), arr);
+
+                } else {
+                    break;
+                }
             }
         }
     }
 
-    public void Graficar() {
+    public Clave Buscar(int id) {
+        return Buscar(this.raiz, id, new ArrayList<>(), null);
+    }
+
+    private Clave Buscar(Pagina actual, int id, ArrayList<Pagina> arr, Clave regreso) {
+        if (actual != null) {
+            if (arr.contains(actual)) {
+                arr.remove(actual);
+                return null;
+            } else {
+                arr.add(actual);
+            }
+            for (int i = 0; i < actual.getMax(); i++) {
+                if (actual.get(i) != null) {
+                    if (id == (Integer) actual.get(i).getKey()) {
+                        return actual.get(i);
+                    } else if (id < (Integer) actual.get(i).getKey()) {
+                        regreso = Buscar(actual.get(i).getIzquierda(), id, arr, regreso);
+                        if (regreso != null) {
+                            return regreso;
+                        }
+                    } else if (id > (Integer) actual.get(i).getKey()) {
+                        regreso = Buscar(actual.get(i).getDerecha(), id, arr, regreso);
+                        if (regreso != null) {
+                            return regreso;
+                        }
+                    }
+                }
+            }
+            return regreso;
+        }
+        return null;
+    }
+
+    public void Graficar(String nombre) {
         StringBuilder s = new StringBuilder();
         s.append("digraph G{\n").append("node[shape=record]\n");
         Graficar(this.raiz, s, new ArrayList<>(), null, 0);
@@ -230,7 +281,7 @@ public class ArbolB<T extends Comparable<T>,V> {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("salida.dot");
+            fichero = new FileWriter(nombre + ".dot");
             pw = new PrintWriter(fichero);
             pw.append(s.toString());
         } catch (Exception e) {
@@ -244,15 +295,13 @@ public class ArbolB<T extends Comparable<T>,V> {
                 e2.printStackTrace();;
             }
             try {
-                String cmd = "dot -Tpdf ./salida.dot -o imagen.pdf";
+                String cmd = "dot -Tpdf ./" + nombre + ".dot " + "-o " + nombre + ".pdf";
                 Runtime.getRuntime().exec(cmd);
             } catch (IOException ioe) {
                 System.out.println(ioe);
             }
         }
     }
-    
-    
 
     private void Graficar(Pagina actual, StringBuilder cad, ArrayList<Pagina> arr, Pagina padre, int pos) {
         if (actual == null) {
@@ -269,21 +318,21 @@ public class ArbolB<T extends Comparable<T>,V> {
         boolean enlace = true;
         for (int i = 0; i < actual.getMax(); i++) {
             if (actual.get(i) == null) {
-                return;   
-            }else{
+                return;
+            } else {
                 if (enlace) {
                     if (i != actual.getMax() - 1) {
                         cad.append("<f").append(j).append(">|");
-                    }else{
+                    } else {
                         cad.append("<f").append(j).append(">");
                         break;
                     }
                     enlace = false;
                     i--;
                     j++;
-                }else{
+                } else {
                     Usuario usu = (Usuario) actual.get(i).getValor();
-                    cad.append("<f").append(j++).append(">").append(usu.getNombre()).append(" @").append(usu.getUsuario()).append("|");
+                    cad.append("<f").append(j++).append(">").append(usu.getKey()).append(" ").append(usu.getNombre()).append(";").append(usu.getUsuario()).append("|");
                     enlace = true;
                     if (1 < actual.getMax() - 1) {
                         if (actual.get(i + 1) == null) {
@@ -305,7 +354,7 @@ public class ArbolB<T extends Comparable<T>,V> {
             Graficar(actual.get(i).getDerecha(), cad, arr, actual, ji++);
             ji--;
         }
-        if(padre != null){
+        if (padre != null) {
             cad.append("node").append(padre.hashCode()).append(":f").append(pos).append("->node").append(actual.hashCode()).append("\n");
         }
     }

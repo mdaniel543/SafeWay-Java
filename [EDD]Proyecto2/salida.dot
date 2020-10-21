@@ -1,8 +1,0 @@
-digraph G{
-node[shape=record]
-node856419764[label = "<f0>|<f1>Daniel @dan|<f2>"]
-node621009875[label = "<f0>|<f1>Clark Ken @superman|<f2>|<f3>Peter Parker @spiderman|<f4>"]
-node856419764:f0->node621009875
-node1265094477[label = "<f0>|<f1>Bruno Wayne @batman|<f2>|<f3>Michael Schumacher @mschumacher|<f4>"]
-node856419764:f2->node1265094477
-}

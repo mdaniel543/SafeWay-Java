@@ -2,19 +2,19 @@
   "localidades": [
     {
       "id_usuario": 1,
-      "id_lugar": 25
+      "id_lugar": 2
     },
     {
       "id_usuario": 2,
-      "id_lugar": 24
+      "id_lugar": 1
     },
     {
-      "id_usuario": 3,
+      "id_usuario": 18,
       "id_lugar": 3
     },
     {
-      "id_usuario": 4,
-      "id_lugar": 10
+      "id_usuario": 15,
+      "id_lugar": 1
     }
   ]
 }

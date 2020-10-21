@@ -20,6 +20,7 @@ public class Usuario {
     private String pass;
     private String telefono;
     private String rol;
+    private boolean disponibilidad;
     private Lugar lugar;
 
     public Usuario(int key, String Nombre, String usuario, String correo, String pass, String telefono, String rol) {
@@ -95,4 +96,14 @@ public class Usuario {
     public void setLugar(Lugar lugar) {
         this.lugar = lugar;
     }
+
+    public boolean getDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public void setDisponibilidad(boolean disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
+
+    
 }

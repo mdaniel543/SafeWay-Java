@@ -1,0 +1,8 @@
+digraph G{
+node[shape=record]
+node621009875[label = "<f0>|<f1>20 Brimos;B|<f2>"]
+node1265094477[label = "<f0>|<f1>4 Misael;MM|<f2>|<f3>8 Neon;N|<f4>|<f5>12 Pedro;pe|<f6>"]
+node621009875:f0->node1265094477
+node2125039532[label = "<f0>|<f1>24 Bruno Wayne;batman|<f2>|<f3>25 Michael Schumacher;mschumacher|<f4>"]
+node621009875:f2->node2125039532
+}

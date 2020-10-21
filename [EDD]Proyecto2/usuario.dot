@@ -1,0 +1,10 @@
+digraph G{
+node[shape=record]
+node1836019240[label = "<f0>|<f1>9 Daniel;dan|<f2>|<f3>19 Edilzar;ee|<f4>"]
+node325040804[label = "<f0>|<f1>1 Clark Ken;superman|<f2>|<f3>2 Peter Parker;spiderman|<f4>|<f5>6 Marvin;M|<f6>|<f7>7 Yajir;Y|<f8>"]
+node1836019240:f0->node325040804
+node1173230247[label = "<f0>|<f1>15 Estudiante;E|<f2>|<f3>18 Eddy;H|<f4>"]
+node1836019240:f2->node1173230247
+node856419764[label = "<f0>|<f1>21 Maestro;M|<f2>|<f3>35 Abuelo;abu|<f4>"]
+node1836019240:f4->node856419764
+}

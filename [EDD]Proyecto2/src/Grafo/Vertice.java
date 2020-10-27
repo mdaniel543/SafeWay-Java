@@ -3,41 +3,45 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Grafo;
 
+import ArbolB.*;
 import java.util.LinkedList;
 
 /**
- * 
+ *
  * @author Daniel
  */
 public class Vertice {
+
     private long id;
     private String categoria;
     private String nombre;
     private double latitud;
     private double longitud;
-    private LinkedList<Vertice> adyacentes;
+    private int numVertice;
     private LinkedList<Arista> detalle;
+    private LinkedList<Usuario> conductor;
 
-    public Vertice(long id, String categoria, String nombre, double latitud, double longitud) {
+    public Vertice(long id, String categoria, String nombre, double latitud, double longitud, int numVertice) {
         this.id = id;
         this.categoria = categoria;
         this.nombre = nombre;
         this.latitud = latitud;
         this.longitud = longitud;
-        this.adyacentes = new LinkedList<>();
         this.detalle = new LinkedList<>();
+        this.numVertice = numVertice;
+        this.conductor = new LinkedList<>();
     }
 
-    public void imprimirObjeto(){
-        System.out.println("Id: "+ this.id);
-        System.out.println("Categoria: "+ this.categoria);
-        System.out.println("Nombre: "+this.nombre);
-        System.out.println("Latitud: "+this.latitud);
-        System.out.println("Longitud: "+this.longitud);
-        for (Arista a:  this.detalle) {
+    public void imprimirObjeto() {
+        System.out.println("Id: " + this.id);
+        System.out.println("Categoria: " + this.categoria);
+        System.out.println("Nombre: " + this.nombre);
+        System.out.println("Latitud: " + this.latitud);
+        System.out.println("Longitud: " + this.longitud);
+        System.out.println("Numero de vertice: " + getNumVertice());
+        for (Arista a : this.detalle) {
             System.out.println("---------------------------");
             System.out.println("Destino: " + a.getDestino());
             System.out.println("Peso: " + a.getPeso());
@@ -45,10 +49,19 @@ public class Vertice {
             System.out.println("Precio: " + a.getPrecio());
             System.out.println("Moneda: " + a.getMoneda());
         }
+        System.out.println("---------------------------");
+        for (Usuario c: this.conductor){
+            System.out.println("---------------------------");
+            System.out.print(c.getKey() + " ");
+            System.out.println(c.getNombre());
+            System.out.println(c.getDisponibilidad());
+            System.out.println(c.getTelefono());
+        }
         System.out.println();
         System.out.println();
         System.out.println("===============================");
     }
+
     /**
      * @return the id
      */
@@ -118,18 +131,6 @@ public class Vertice {
     public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
-    
-    public LinkedList<Vertice> getAdyacentes() {
-        return adyacentes;
-    }
-
-    /**
-     * @param adyacentes the adyacentes to set
-     */
-    public void setAdyacentes(LinkedList<Vertice> adyacentes) {
-        this.adyacentes = adyacentes;
-    }
-
     public LinkedList<Arista> getDetalle() {
         return detalle;
     }
@@ -137,6 +138,20 @@ public class Vertice {
     public void setDetalle(LinkedList<Arista> detalle) {
         this.detalle = detalle;
     }
-    
-    
+
+    public int getNumVertice() {
+        return numVertice;
+    }
+
+    public void setNumVertice(int numVertice) {
+        this.numVertice = numVertice;
+    }
+
+    public LinkedList<Usuario> getConductor() {
+        return conductor;
+    }
+
+    public void setConductor(LinkedList<Usuario> conductor) {
+        this.conductor = conductor;
+    }
 }

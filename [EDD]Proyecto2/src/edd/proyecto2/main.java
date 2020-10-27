@@ -24,7 +24,7 @@ public class main {
     public static void main(String[] args) {
         ReadJson lectura = new ReadJson();
         lectura.Lugares();
-        //lectura.Grafo();
+        lectura.Grafo();
         lectura.Usuario();
         lectura.LocalidadUsuario();
         lectura.LocalidadConductor();

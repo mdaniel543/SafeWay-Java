@@ -214,16 +214,17 @@ public class ArbolB<T extends Comparable<T>, V> {
             } else {
                 arr.add(actual);
             }
-            System.out.println("------");
+            System.out.println("/-/-/-/-/-/-/-/-/-/-/-/-/-/-/");
             for (int i = 0; i < actual.getMax(); i++) {
                 if (actual.get(i) != null) {
                     Usuario usu = (Usuario) actual.get(i).getValor();
                     System.out.println("");
                     System.out.println(usu.getNombre());
                     System.out.println(usu.getUsuario());
+                    //System.out.println(usu.getPass());
                     if(usu.getLugar() != null){
                         System.out.println("El lugar del usuario es:");
-                        System.out.println(usu.getLugar().getId());
+                        System.out.print(usu.getLugar().getId() + " " );
                         System.out.println(usu.getLugar().getNombre());
                     }
                     if(("conductor").equals(usu.getRol())){
@@ -272,12 +273,16 @@ public class ArbolB<T extends Comparable<T>, V> {
         }
         return null;
     }
-
+    public String[] colores = {"red", "blue", "yellow", "deeppink2", "cyan1","gray","darkseagreen1", "green", "cadetblue1", "darkslategray"
+        ,"cadetblue", "darkorchid", "mediumseagreen", "palegreen1", "dodgerblue3", "gold1", "indigo"};
+    int x = colores.length;
+    
     public void Graficar(String nombre) {
         StringBuilder s = new StringBuilder();
-        s.append("digraph G{\n").append("node[shape=record]\n");
+        s.append("digraph G{\n").append("node[shape=record style=filled]\n");
         Graficar(this.raiz, s, new ArrayList<>(), null, 0);
         s.append("}");
+        //System.out.println(s.toString());
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
@@ -315,6 +320,7 @@ public class ArbolB<T extends Comparable<T>, V> {
             arr.add(actual);
         }
         cad.append("node").append(actual.hashCode()).append("[label = \"");
+        x--; 
         boolean enlace = true;
         for (int i = 0; i < actual.getMax(); i++) {
             if (actual.get(i) == null) {
@@ -332,7 +338,8 @@ public class ArbolB<T extends Comparable<T>, V> {
                     j++;
                 } else {
                     Usuario usu = (Usuario) actual.get(i).getValor();
-                    cad.append("<f").append(j++).append(">").append(usu.getKey()).append(" ").append(usu.getNombre()).append(";").append(usu.getUsuario()).append("|");
+                    j++;
+                    cad.append("{").append(usu.getKey()).append("|").append(usu.getNombre()).append("|").append(usu.getUsuario()).append("}|");
                     enlace = true;
                     if (1 < actual.getMax() - 1) {
                         if (actual.get(i + 1) == null) {
@@ -343,7 +350,10 @@ public class ArbolB<T extends Comparable<T>, V> {
                 }
             }
         }
-        cad.append("\"]\n");
+        cad.append("\"][fillcolor = \"").append(colores[x]).append("\"]\n");
+        if(x == 0){
+            x = colores.length;
+        }
         int ji = 0;
         for (int i = 0; i < actual.getMax(); i++) {
             if (actual.get(i) == null) {

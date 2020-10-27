@@ -15,9 +15,9 @@ public class Arista {
     private String unidad;
     private double precio;
     private String Moneda;
-    private int destino;
-
-    public Arista(double peso, String unidad, double precio, String Moneda, int destino) {
+    private String destino;
+    
+    public Arista(double peso, String unidad, double precio, String Moneda, String destino) {
         this.peso = peso;
         this.unidad = unidad;
         this.precio = precio;
@@ -25,11 +25,11 @@ public class Arista {
         this.destino = destino;
     }
 
-    public int getDestino() {
+    public String getDestino() {
         return destino;
     }
 
-    public void setDestino(int destino) {
+    public void setDestino(String destino) {
         this.destino = destino;
     }
 

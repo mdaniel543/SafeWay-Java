@@ -1,10 +1,10 @@
 digraph G{
-node[shape=record]
-node1836019240[label = "<f0>|<f1>9 Daniel;dan|<f2>|<f3>19 Edilzar;ee|<f4>"]
-node325040804[label = "<f0>|<f1>1 Clark Ken;superman|<f2>|<f3>2 Peter Parker;spiderman|<f4>|<f5>6 Marvin;M|<f6>|<f7>7 Yajir;Y|<f8>"]
-node1836019240:f0->node325040804
-node1173230247[label = "<f0>|<f1>15 Estudiante;E|<f2>|<f3>18 Eddy;H|<f4>"]
-node1836019240:f2->node1173230247
-node856419764[label = "<f0>|<f1>21 Maestro;M|<f2>|<f3>35 Abuelo;abu|<f4>"]
-node1836019240:f4->node856419764
+node[shape=record style=filled]
+node918221580[label = "<f0>|{4|Irene Galicia4|laIrene}|<f2>|{12|Jonathan12|JJ}|<f4>"][fillcolor = "indigo"]
+node2055281021[label = "<f0>|{1|Jorge Galicia1|YorchG}|<f2>|{3|Fernando Modesto3|ModestoF}|<f4>"][fillcolor = "gold1"]
+node918221580:f0->node2055281021
+node1554547125[label = "<f0>|{6|Argentina Gomez6|TinaM}|<f2>|{8|Alma Patricia8|patriciaA}|<f4>"][fillcolor = "dodgerblue3"]
+node918221580:f2->node1554547125
+node617901222[label = "<f0>|{14|Erick14|el}|<f2>|{15|Leonardo15|Leo}|<f4>|{19|Josue19|jaina}|<f6>|{99|Armando99|AA}|<f8>"][fillcolor = "palegreen1"]
+node918221580:f4->node617901222
 }

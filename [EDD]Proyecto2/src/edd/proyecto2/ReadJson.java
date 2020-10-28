@@ -50,7 +50,7 @@ public class ReadJson {
                 //System.out.println(Nombre);
                 double Lat = (Double) jsonNumber.get("Lat");
                 //System.out.println(Lat);
-                double Lon = (Double) jsonNumber.get("Lat");
+                double Lon = (Double) jsonNumber.get("Lon");
                 //System.out.println(Lon);
                 Lugar ll = new Lugar(id, Categoria, Nombre, Lat, Lon);
                 Tabla.insertar(ll);
@@ -96,14 +96,6 @@ public class ReadJson {
             graf.imprimirMatriz();
             //graf.dibujar();
             graf.recorrer();
-            minimo = new Camino(graf, 3);
-            System.out.println("");
-            System.out.println("--------------------------------");
-            System.out.println("");
-            minimo.caminoMinimos();
-            System.out.println("");
-            System.out.println("--------------------------------");
-            System.out.println("");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -172,7 +164,7 @@ public class ReadJson {
                 if (edit != null) {
                     Lugar aedit = Tabla.buscar(idL);
                     if (aedit != null) {
-                        ((Usuario) edit.getValor()).setLugar(aedit);
+                        ((Usuario) edit.getValor()).setLugar(idL);
                     } else {
                         System.out.println("No se ha podido colocar el lugar " + idL);
                     }
@@ -211,7 +203,7 @@ public class ReadJson {
                 if (edit != null) {
                     Lugar aedit = Tabla.buscar(idL);
                     if (aedit != null) {
-                        ((Usuario) edit.getValor()).setLugar(aedit);
+                        ((Usuario) edit.getValor()).setLugar(idL);
                     } else {
                         System.out.println("No se ha podido colocar el lugar " + idL);
                     }
@@ -228,6 +220,10 @@ public class ReadJson {
             System.out.println("////////////////////////////////////////////////");
             System.out.println("");
             graf.recorrer();
+            System.out.println("");
+            System.out.println("=============================================");
+            System.out.println("");            
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

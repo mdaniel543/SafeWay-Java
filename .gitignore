@@ -3,4 +3,7 @@
 [[]EDD]Proyecto2/test
 [[]EDD]Proyecto2/build.xml
 [[]EDD]Proyecto2/manifest.mf
-/TablaHash/nbproject/private/
+[[]EDD]Proyecto2/*.json
+[[]EDD]Proyecto2/*.txt
+[[]EDD]Proyecto2/*.pdf
+[[]EDD]Proyecto2/*.dot

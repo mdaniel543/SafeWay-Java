@@ -1,8 +1,0 @@
-digraph g{
-node[shape=record fontsize=18, fontname=chiller];
-node0[label="T-3|Margaritas 5|Gasolinera puma quetzal||"][color=red];
-node1[label="Plaza Villa nueva|Los Andes|S-12||"][color=blue];
-node2[label="Carga: 0.6 Size: 6"]
-node0->node1[style="invis"]
-node1->node2[style="invis"]
-} 

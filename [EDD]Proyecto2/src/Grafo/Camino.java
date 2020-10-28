@@ -6,6 +6,7 @@
 package Grafo;
 
 import edd.proyecto2.ReadJson;
+import java.util.LinkedList;
 
 /**
  *
@@ -13,19 +14,26 @@ import edd.proyecto2.ReadJson;
  */
 public class Camino {
 
+    public LinkedList<Integer> descartados;
+    public int[] vertices;
+    public int c;
+    public double[] arreglo;
     private double[][] Pesos;
     private int[] ultimo;
     private double[] D;
     private boolean[] F;
-    private int s, n; 
+    private int s, n;
 
     public Camino(Grafo gp, int origen) {
+        descartados = new LinkedList<>();
         n = gp.getNumeroVertice();
         s = origen;
         Pesos = gp.getMatrizPeso();
         ultimo = new int[n];
         D = new double[n];
-        F = new boolean[n];
+        arreglo = new double[n];
+        F = new boolean[n];     
+        c = -1;
     }
 
     public void caminoMinimos() {
@@ -53,8 +61,8 @@ public class Camino {
                 }
             }
         }
-        System.out.print("[");
-        for (int i = 0; i < 6; i++) {
+        System.out.print("[ ");
+        for (int i = 0; i < D.length; i++) {
             System.out.print(D[i] + ", ");
         }
         System.out.println("]");
@@ -71,4 +79,61 @@ public class Camino {
         }
         return v;
     }
+    public int CaminoMostrado(int v, int i) {
+        i++;
+        int anterior = ultimo[v];
+        if (v != s) {
+            int j = CaminoMostrado(anterior, i);
+            System.out.print(" -> V" + v);
+            return j;
+        } else {
+            System.out.print("V" + s);
+        }
+        return i;
+    }
+    
+    public int[] ArregloCamino(int v) { 
+        int anterior = ultimo[v];
+        if (v != s) {
+            ArregloCamino(anterior); 
+            c++;  
+            vertices[c] = v;
+        } else {
+            c++;
+            vertices[c] = s; 
+        }
+        return vertices;
+    }
+
+    public int conductorCerca() {
+        for (int j : descartados) {
+            System.out.println(j + " soy yo de nuevo");
+        }
+        for (int i = 0; i < arreglo.length; i++) {
+            if (!descartados.contains(i)) {
+                descartados.add(i);
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void Ordenar() {
+        arreglo = D.clone();
+        for (int i = 0; i < arreglo.length - 1; i++) {
+            for (int j = 0; j < arreglo.length - 1; j++) {
+                if (arreglo[j] > arreglo[j + 1]) {
+                    double tmp = arreglo[j + 1];
+                    arreglo[j + 1] = arreglo[j];
+                    arreglo[j] = tmp;
+                }
+            }
+        }
+        System.out.print("[ ");
+        for (int i = 0; i < arreglo.length; i++) {
+            System.out.print(arreglo[i] + ", ");
+        }
+        System.out.println("]");
+    }
+
 }

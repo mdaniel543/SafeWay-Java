@@ -5,6 +5,10 @@
  */
 package Grafo;
 
+import ArbolB.*;
+import edd.proyecto2.*;
+import static edd.proyecto2.ReadJson.*;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -52,6 +56,7 @@ public class Grafo {
         }
         Arista camino = new Arista(peso, unidad, precio, moneda, b);
         Arista cami = new Arista(peso, unidad, precio, moneda, a);
+        
         origen.getDetalle().add(camino);
         destino.getDetalle().add(cami);
 
@@ -68,7 +73,7 @@ public class Grafo {
         }
         return null;
     }
-    
+
     public Vertice Buscar(String i) {
         for (Vertice e : this.vertices) {
             if (e.getNombre().equals(i)) {
@@ -84,62 +89,53 @@ public class Grafo {
         }
     }
 
+    public Usuario VerticeCercano() {
+        int k = minimo.conductorCerca(); ///ReadJson
+        if (k == -1) {
+            System.out.println("-----------------");
+            System.out.println("--No hay conductores disponibles-");
+            System.out.println("-----------------");
+            return null;
+        }
+        for (Vertice e : this.vertices) {
+            if (k == e.getNumVertice()) {
+                System.out.print("El vertice mas cercano es el: ");
+                System.out.println(e.getNombre() + " " + e.getNumVertice());
+                Usuario sele = ConductorCercano(e);
+                e.getConductor().remove(sele);
+                return sele;
+            }
+        }
+        return null;
+    }
+     public Vertice BuscarNumero(int i) {
+        for (Vertice e : this.vertices) {
+            if (e.getNumVertice() == i) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    public Usuario ConductorCercano(Vertice cerca) {
+        for (Usuario e : cerca.getConductor()) {
+            if (e.getDisponibilidad()) {
+                System.out.println("EL conductor disponible es: " + e.getNombre());
+                return e;
+            }
+        }
+        System.out.println("No encontro conductor disponible en este vertice");
+        System.out.println("Se procede buscar otro vertice");
+        return VerticeCercano();
+    }
+    
     public void imprimirMatriz() {
-        System.out.println("\n\nLA MATERIZ DE ADYACENCIA");
+        System.out.println("");
+        System.out.println("MATRIZ DE ADYACENCIA");
         for (double matriz[] : getMatrizPeso()) {
             System.out.println(Arrays.toString(matriz));
         }
     }
-
-//    public void dibujar() {
-//        LinkedList<Vertice> aux = new LinkedList<>();
-//        StringBuilder sc = new StringBuilder();
-//        sc.append("digraph G{\n");
-//        for (int i = 0; i < this.vertices.size(); i++) {
-//            Vertice temp = this.vertices.get(i);
-//            if (aux.contains(temp) == false) {
-//                aux.add(temp);
-//                sc.append("node").append(temp.hashCode()).append(" [label=\"").append(temp.getId()).append("\"];\n");
-//            }
-//            for (int j = 0; j < temp.getDetalle().size(); j++) {
-//                Arista temp2 = temp.getDetalle().get(j);
-//                sc.append("node").append(temp.hashCode()).append("->node").append(temp.getAdyacentes().get(j).hashCode()).append("[label = \"").append(temp2.getPeso()).append("\"];\n");
-//                if (!aux.contains(temp.getAdyacentes().get(j))) {
-//                    aux.add(temp.getAdyacentes().get(j));
-//                    sc.append("node").append(temp.getAdyacentes().get(j).hashCode()).append(" [label=\"").append(temp.getAdyacentes().get(j).getId()).append("\"];\n");
-//                } 
-//            }
-//        }
-//        sc.append("}");
-//
-//        GuardarGrafo(sc);
-//    }
-
-//    public void GuardarGrafo(StringBuilder sc) {
-//        FileWriter fichero = null;
-//        PrintWriter pw = null;
-//        try {
-//            fichero = new FileWriter("Grafo.dot");
-//            pw = new PrintWriter(fichero);
-//            pw.append(sc.toString());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (null != fichero) {
-//                    fichero.close();
-//                }
-//            } catch (Exception e2) {
-//                e2.printStackTrace();;
-//            }
-//            try {
-//                String cmd = "dot -Tpdf ./ Grafo.dot " + "-o Grafo.pdf";
-//                Runtime.getRuntime().exec(cmd);
-//            } catch (IOException ioe) {
-//                System.out.println(ioe);
-//            }
-//        }
-//    }
 
     public LinkedList<Vertice> getVertices() {
         return vertices;

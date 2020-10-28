@@ -221,12 +221,9 @@ public class ArbolB<T extends Comparable<T>, V> {
                     System.out.println("");
                     System.out.println(usu.getNombre());
                     System.out.println(usu.getUsuario());
+                    System.out.println("El lugar del usuario es:");
+                    System.out.println(usu.getLugar());
                     //System.out.println(usu.getPass());
-                    if(usu.getLugar() != null){
-                        System.out.println("El lugar del usuario es:");
-                        System.out.print(usu.getLugar().getId() + " " );
-                        System.out.println(usu.getLugar().getNombre());
-                    }
                     if(("conductor").equals(usu.getRol())){
                         System.out.println(usu.getDisponibilidad());
                     }

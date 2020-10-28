@@ -21,7 +21,7 @@ public class Usuario {
     private String telefono;
     private String rol;
     private boolean disponibilidad;
-    private Lugar lugar;
+    private String  lugar;
 
     public Usuario(int key, String Nombre, String usuario, String correo, String pass, String telefono, String rol) {
         this.key = key;
@@ -89,11 +89,11 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public Lugar getLugar() {
+    public String getLugar() {
         return lugar;
     }
 
-    public void setLugar(Lugar lugar) {
+    public void setLugar(String lugar) {
         this.lugar = lugar;
     }
 

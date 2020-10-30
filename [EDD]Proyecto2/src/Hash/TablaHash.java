@@ -115,6 +115,13 @@ public class TablaHash {
         }
         return valor;
     }
+    
+    public Lugar[] getTabla(){
+        return tabla;
+    }
+    public int getsize(){
+        return size;
+    }
 
     public void Graficar() {
         String[] colores = {"red", "blue", "yellow", "deeppink2", "cyan1","gray","darkseagreen1", "green", "cadetblue1", "darkslategray"

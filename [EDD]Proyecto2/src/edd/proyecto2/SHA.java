@@ -16,10 +16,8 @@ import java.security.MessageDigest;
 public class SHA {
     
     public static String getSHA256(String Entrada){
-
 	String Return = null;
 	try {
-            
 	    MessageDigest digest = MessageDigest.getInstance("SHA-256"); // Instanciamos el metodo que llamada el metodo SHA
 	    digest.reset(); //
 	    digest.update(Entrada.getBytes("utf8")); // la entrada se valua al formato de caracteres 

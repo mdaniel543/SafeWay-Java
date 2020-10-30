@@ -224,7 +224,7 @@ public class ArbolB<T extends Comparable<T>, V> {
                     System.out.println("El lugar del usuario es:");
                     System.out.println(usu.getLugar());
                     //System.out.println(usu.getPass());
-                    if(("conductor").equals(usu.getRol())){
+                    if (("conductor").equals(usu.getRol())) {
                         System.out.println(usu.getDisponibilidad());
                     }
                     Imprimir(actual.get(i).getIzquierda(), arr);
@@ -270,10 +270,44 @@ public class ArbolB<T extends Comparable<T>, V> {
         }
         return null;
     }
-    public String[] colores = {"red", "blue", "yellow", "deeppink2", "cyan1","gray","darkseagreen1", "green", "cadetblue1", "darkslategray"
-        ,"cadetblue", "darkorchid", "mediumseagreen", "palegreen1", "dodgerblue3", "gold1", "indigo"};
+
+    public Clave BuscarUser(String id) {
+        return BuscarUser(this.raiz, id, new ArrayList<>(), null);
+    }
+
+    private Clave BuscarUser(Pagina actual, String id, ArrayList<Pagina> arr, Clave regreso) {
+        if (actual != null) {
+            if (arr.contains(actual)) {
+                arr.remove(actual);
+                return null;
+            } else {
+                arr.add(actual);
+            }
+            for (int i = 0; i < actual.getMax(); i++) {
+                if (actual.get(i) != null) {
+                    if (id.equals(((Usuario) actual.get(i).getValor()).getUsuario())) {
+                        return actual.get(i);
+                    }
+                    regreso = BuscarUser(actual.get(i).getIzquierda(), id, arr, regreso);
+                    if (regreso != null) {
+                        return regreso;
+                    }
+                    regreso = BuscarUser(actual.get(i).getDerecha(), id, arr, regreso);
+                    if (regreso != null) {
+                        return regreso;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        return null;
+    }
+
+    public String[] colores = {"red", "blue", "yellow", "deeppink2", "cyan1", "gray", "darkseagreen1", "green", "cadetblue1", "darkslategray",
+         "cadetblue", "darkorchid", "mediumseagreen", "palegreen1", "dodgerblue3", "gold1", "indigo"};
     int x = colores.length;
-    
+
     public void Graficar(String nombre) {
         StringBuilder s = new StringBuilder();
         s.append("digraph G{\n").append("node[shape=record style=filled]\n");
@@ -317,7 +351,7 @@ public class ArbolB<T extends Comparable<T>, V> {
             arr.add(actual);
         }
         cad.append("node").append(actual.hashCode()).append("[label = \"");
-        x--; 
+        x--;
         boolean enlace = true;
         for (int i = 0; i < actual.getMax(); i++) {
             if (actual.get(i) == null) {
@@ -348,7 +382,7 @@ public class ArbolB<T extends Comparable<T>, V> {
             }
         }
         cad.append("\"][fillcolor = \"").append(colores[x]).append("\"]\n");
-        if(x == 0){
+        if (x == 0) {
             x = colores.length;
         }
         int ji = 0;

@@ -108,7 +108,7 @@ public class Grafo {
         }
         return null;
     }
-     public Vertice BuscarNumero(int i) {
+    public Vertice BuscarNumero(int i) {
         for (Vertice e : this.vertices) {
             if (e.getNumVertice() == i) {
                 return e;

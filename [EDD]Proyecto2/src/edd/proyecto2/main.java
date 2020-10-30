@@ -7,17 +7,25 @@ package edd.proyecto2;
 
 import ArbolB.*;
 import Grafo.*;
+import Interfaz.*;
 import com.teamdev.jxmaps.LatLng;
 import com.teamdev.jxmaps.MapViewOptions;
 import static edd.proyecto2.ReadJson.*;
 import java.awt.BorderLayout;
+
+import de.javasoft.plaf.synthetica.SyntheticaPlainLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Iterator;
-import javax.swing.JFrame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.*;
 import javax.swing.WindowConstants;
 
 import org.json.simple.JSONArray;
@@ -27,17 +35,33 @@ import org.json.simple.parser.ParseException;
 
 public class main {
 
+    public static ReadJson lectura = new ReadJson();
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        ReadJson lectura = new ReadJson();
-        lectura.Lugares();
-        lectura.Grafo();
-        lectura.Usuario();
-        lectura.LocalidadUsuario();
-        lectura.LocalidadConductor();
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+//        try {
+//            UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel");
+//        } catch (UnsupportedLookAndFeelException ex) {
+//            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
+        lectura.Lugares("Lugares.json");
+        lectura.Grafo("Grafo.json");
+        lectura.Usuario("Usuarios.json");
+        lectura.LocalidadUsuario("Localidades Usuarios.json");
+        lectura.LocalidadConductor("Localidades.json");
+
+//        HacerEnlaces();
+
+        new Login().setVisible(true);
+//        new Admin().setVisible(true);
+//        new User().setVisible(true);
+//       new Place().setVisible(true);
+    }
+
+    public static void HacerEnlaces() {
         Clave p = normal.Buscar(1);
         Usuario pasajero = (Usuario) p.getValor();
         Vertice origen = graf.Buscar(pasajero.getLugar());
@@ -61,9 +85,8 @@ public class main {
         } else {
             System.out.println("NULL");
         }
-
     }
-
+    
     public static void HacerCamino(Usuario piloto, Usuario pasajero, Vertice destino) {
         System.out.println("--------------------------------");
         int contador = minimo.CaminoMostrado(destino.getNumVertice(), 0);
@@ -107,7 +130,7 @@ public class main {
         }
         mapa.agregarGrafo(c, true);
         JFrame frame = new JFrame("Mapa");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setSize(1000, 800);
         frame.add(mapa, BorderLayout.CENTER);

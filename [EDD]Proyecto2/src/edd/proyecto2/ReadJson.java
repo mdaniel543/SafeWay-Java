@@ -33,9 +33,9 @@ public class ReadJson {
 
     public static ArbolB<Integer, Usuario> conductor = new ArbolB<>(5);
 
-    public void Lugares() {
+    public void Lugares(String ruta) {
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("Lugares.json")) {
+        try (FileReader reader = new FileReader(ruta)) {
             Object obj = jsonParser.parse(reader);
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray lugar = (JSONArray) jsonObject.get("Lugares");
@@ -70,9 +70,9 @@ public class ReadJson {
         }
     }
 
-    public void Grafo() {
+    public void Grafo(String ruta) {
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("Grafo.json")) {
+        try (FileReader reader = new FileReader(ruta)) {
             Object obj = jsonParser.parse(reader);
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray Grafo = (JSONArray) jsonObject.get("Grafo");
@@ -105,9 +105,9 @@ public class ReadJson {
         }
     }
 
-    public void Usuario() {
+    public void Usuario(String ruta) {
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("Usuarios.json")) {
+        try (FileReader reader = new FileReader(ruta)) {
             Object obj = jsonParser.parse(reader);
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray Usuario = (JSONArray) jsonObject.get("usuarios");
@@ -135,10 +135,12 @@ public class ReadJson {
                 }
             }
             //normal.Graficar("usuario");
-            //normal.Imprimir();
+            normal.Imprimir();
 
             //conductor.Graficar("conductor");
-            //conductor.Imprimir();
+            conductor.Imprimir();
+            
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -148,9 +150,9 @@ public class ReadJson {
         }
     }
 
-    public void LocalidadUsuario() {
+    public void LocalidadUsuario(String Ruta) {
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("Localidades Usuarios.json")) {
+        try (FileReader reader = new FileReader(Ruta)) {
             Object obj = jsonParser.parse(reader);
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray LU = (JSONArray) jsonObject.get("localidades");
@@ -186,9 +188,9 @@ public class ReadJson {
         }
     }
 
-    public void LocalidadConductor() {
+    public void LocalidadConductor(String ruta) {
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("Localidades.json")) {
+        try (FileReader reader = new FileReader(ruta)) {
             Object obj = jsonParser.parse(reader);
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray LC = (JSONArray) jsonObject.get("localidades");
@@ -222,7 +224,7 @@ public class ReadJson {
             graf.recorrer();
             System.out.println("");
             System.out.println("=============================================");
-            System.out.println("");            
+            System.out.println("");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

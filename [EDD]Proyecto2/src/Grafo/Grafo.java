@@ -24,6 +24,7 @@ public class Grafo {
     LinkedList<Vertice> vertices;
     private int NumeroVertice;
     private double[][] MatrizPeso;
+    public static Vertice origenp;
 
     public Grafo(int mx) {
         this.vertices = new LinkedList<>();
@@ -101,13 +102,13 @@ public class Grafo {
             if (k == e.getNumVertice()) {
                 System.out.print("El vertice mas cercano es el: ");
                 System.out.println(e.getNombre() + " " + e.getNumVertice());
-                Usuario sele = ConductorCercano(e);
-                e.getConductor().remove(sele);
-                return sele;
+                origenp = e;
+                return ConductorCercano(e);
             }
         }
         return null;
     }
+    
     public Vertice BuscarNumero(int i) {
         for (Vertice e : this.vertices) {
             if (e.getNumVertice() == i) {
@@ -115,6 +116,16 @@ public class Grafo {
             }
         }
         return null;
+    }
+    
+    public void eliminarConductor(Vertice origen,Usuario piloto){
+        for (Vertice e : this.vertices) {
+            if (origen.getId() == e.getId()) {
+                System.out.print("El vertice a eliminar el conductor");
+                System.out.println(e.getNombre() + " " + e.getNumVertice());
+                e.getConductor().remove(piloto);
+            }
+        }
     }
 
     public Usuario ConductorCercano(Vertice cerca) {

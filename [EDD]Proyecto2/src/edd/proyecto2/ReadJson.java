@@ -32,6 +32,10 @@ public class ReadJson {
     public static ArbolB<Integer, Usuario> normal = new ArbolB<>(5);
 
     public static ArbolB<Integer, Usuario> conductor = new ArbolB<>(5);
+    
+    public static ArbolB<Integer, Viaje> viaje = new ArbolB<>(5);
+    
+    public static ArbolB<Integer, Factura> factura = new ArbolB<>(5);
 
     public void Lugares(String ruta) {
         JSONParser jsonParser = new JSONParser();
@@ -136,7 +140,7 @@ public class ReadJson {
             }
             //normal.Graficar("usuario");
             normal.Imprimir();
-
+            
             //conductor.Graficar("conductor");
             conductor.Imprimir();
             

@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -237,6 +238,69 @@ public class ArbolB<T extends Comparable<T>, V> {
         }
     }
 
+    public void ImprimirV() {
+        ImprimirV(this.raiz, new ArrayList<>());
+    }
+
+    private void ImprimirV(Pagina actual, ArrayList<Pagina> arr) {
+        if (actual != null) {
+            if (arr.contains(actual)) {
+                arr.remove(actual);
+                return;
+            } else {
+                arr.add(actual);
+            }
+            System.out.println("/-/-/-/-/-/-/-/-/-/-/-/-/-/-/");
+            for (int i = 0; i < actual.getMax(); i++) {
+                if (actual.get(i) != null) {
+                    Viaje usu = (Viaje) actual.get(i).getValor();
+                    System.out.println("");
+                    System.out.println("ID Viaje" + usu.getId());
+                    System.out.println("Inicio: " + usu.getInicio());
+                    System.out.println("Fin: " + usu.getFin());
+                    System.out.println(usu.getFecha());
+                    ImprimirV(actual.get(i).getIzquierda(), arr);
+                    ImprimirV(actual.get(i).getDerecha(), arr);
+
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    public void ImprimirF() {
+        ImprimirF(this.raiz, new ArrayList<>());
+    }
+
+    private void ImprimirF(Pagina actual, ArrayList<Pagina> arr) {
+        if (actual != null) {
+            if (arr.contains(actual)) {
+                arr.remove(actual);
+                return;
+            } else {
+                arr.add(actual);
+            }
+            System.out.println("/-/-/-/-/-/-/-/-/-/-/-/-/-/-/");
+            for (int i = 0; i < actual.getMax(); i++) {
+                if (actual.get(i) != null) {
+                    Factura usu = (Factura) actual.get(i).getValor();
+                    System.out.println("");
+                    System.out.println(usu.getId());
+                    System.out.println(usu.getId_usuario());
+                    System.out.println(usu.getId_conductor());
+                    System.out.println(usu.getId_viaje());
+                    System.out.println(usu.getMonto());
+                    System.out.println(usu.getFecha());
+                    ImprimirF(actual.get(i).getIzquierda(), arr);
+                    ImprimirF(actual.get(i).getDerecha(), arr);
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
     public Clave Buscar(int id) {
         return Buscar(this.raiz, id, new ArrayList<>(), null);
     }
@@ -304,14 +368,32 @@ public class ArbolB<T extends Comparable<T>, V> {
         return null;
     }
 
-    public String[] colores = {"red", "blue", "yellow", "deeppink2", "cyan1", "gray", "darkseagreen1", "green", "cadetblue1", "darkslategray",
-         "cadetblue", "darkorchid", "mediumseagreen", "palegreen1", "dodgerblue3", "gold1", "indigo"};
+    public int Aleatorio() {
+        Random random = new Random();
+        int id = random.nextInt(200) + 1;
+        if (Buscar(id) == null) {
+            return id;
+        }
+        System.out.println("****************");
+        System.out.println(id);
+        return Aleatorio();
+    }
+
+    public String[] colores = {"cadetblue", "darkorchid", "mediumseagreen", "palegreen1", "dodgerblue3", "gold1", "indigo",
+        "red", "blue", "yellow", "deeppink2", "cyan1", "gray", "darkseagreen1", "green", "cadetblue1", "darkslategray"};
     int x = colores.length;
 
     public void Graficar(String nombre) {
         StringBuilder s = new StringBuilder();
         s.append("digraph G{\n").append("node[shape=record style=filled]\n");
-        Graficar(this.raiz, s, new ArrayList<>(), null, 0);
+        if(nombre.equals("conductor") || nombre.equals("usuario")){
+            Graficar(this.raiz, s, new ArrayList<>(), null, 0);
+        }else if(nombre.equals("viaje")){
+            GraficarV(this.raiz, s, new ArrayList<>(), null, 0);
+        }else if(nombre.equals("factura")){
+            GraficarF(this.raiz, s, new ArrayList<>(), null, 0);
+        }
+
         s.append("}");
         //System.out.println(s.toString());
         FileWriter fichero = null;
@@ -393,6 +475,130 @@ public class ArbolB<T extends Comparable<T>, V> {
             Graficar(actual.get(i).getIzquierda(), cad, arr, actual, ji++);
             ji++;
             Graficar(actual.get(i).getDerecha(), cad, arr, actual, ji++);
+            ji--;
+        }
+        if (padre != null) {
+            cad.append("node").append(padre.hashCode()).append(":f").append(pos).append("->node").append(actual.hashCode()).append("\n");
+        }
+    }
+
+    private void GraficarV(Pagina actual, StringBuilder cad, ArrayList<Pagina> arr, Pagina padre, int pos) {
+        if (actual == null) {
+            return;
+        }
+        int j = 0;
+        if (arr.contains(actual)) {
+            arr.remove(actual);
+            return;
+        } else {
+            arr.add(actual);
+        }
+        cad.append("node").append(actual.hashCode()).append("[label = \"");
+        x++;
+        boolean enlace = true;
+        for (int i = 0; i < actual.getMax(); i++) {
+            if (actual.get(i) == null) {
+                return;
+            } else {
+                if (enlace) {
+                    if (i != actual.getMax() - 1) {
+                        cad.append("<f").append(j).append(">|");
+                    } else {
+                        cad.append("<f").append(j).append(">");
+                        break;
+                    }
+                    enlace = false;
+                    i--;
+                    j++;
+                } else {
+                    Viaje usu = (Viaje) actual.get(i).getValor();
+                    j++;
+                    cad.append("{").append(usu.getId()).append("|").append(usu.getInicio()).append("|").append(usu.getFin()).append("}|");
+                    enlace = true;
+                    if (1 < actual.getMax() - 1) {
+                        if (actual.get(i + 1) == null) {
+                            cad.append("<f").append(j++).append(">");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        cad.append("\"][fillcolor = \"").append(colores[x]).append("\"]\n");
+        if (x == colores.length - 1) {
+            x = -1;
+        }
+        int ji = 0;
+        for (int i = 0; i < actual.getMax(); i++) {
+            if (actual.get(i) == null) {
+                break;
+            }
+            GraficarV(actual.get(i).getIzquierda(), cad, arr, actual, ji++);
+            ji++;
+            GraficarV(actual.get(i).getDerecha(), cad, arr, actual, ji++);
+            ji--;
+        }
+        if (padre != null) {
+            cad.append("node").append(padre.hashCode()).append(":f").append(pos).append("->node").append(actual.hashCode()).append("\n");
+        }
+    }
+
+    private void GraficarF(Pagina actual, StringBuilder cad, ArrayList<Pagina> arr, Pagina padre, int pos) {
+        if (actual == null) {
+            return;
+        }
+        int j = 0;
+        if (arr.contains(actual)) {
+            arr.remove(actual);
+            return;
+        } else {
+            arr.add(actual);
+        }
+        cad.append("node").append(actual.hashCode()).append("[label = \"");
+        x++;
+        boolean enlace = true;
+        for (int i = 0; i < actual.getMax(); i++) {
+            if (actual.get(i) == null) {
+                return;
+            } else {
+                if (enlace) {
+                    if (i != actual.getMax() - 1) {
+                        cad.append("<f").append(j).append(">|");
+                    } else {
+                        cad.append("<f").append(j).append(">");
+                        break;
+                    }
+                    enlace = false;
+                    i--;
+                    j++;
+                } else {
+                    Factura usu = (Factura) actual.get(i).getValor();
+                    j++;
+                    cad.append("{").append(usu.getId()).append("|{").append("Id Usuario: ").append(usu.getId_usuario()).append("|");
+                    cad.append("Id conductor :").append(usu.getId_conductor()).append("|").append("Id Viaje ").append(usu.getId_viaje());
+                    cad.append("}|").append(usu.getFecha()).append("|").append(usu.getMonto()).append("}|");
+                    enlace = true;
+                    if (1 < actual.getMax() - 1) {
+                        if (actual.get(i + 1) == null) {
+                            cad.append("<f").append(j++).append(">");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        cad.append("\"][fillcolor = \"").append(colores[x]).append("\"]\n");
+        if (x == colores.length - 1) {
+            x = -1;
+        }
+        int ji = 0;
+        for (int i = 0; i < actual.getMax(); i++) {
+            if (actual.get(i) == null) {
+                break;
+            }
+            GraficarF(actual.get(i).getIzquierda(), cad, arr, actual, ji++);
+            ji++;
+            GraficarF(actual.get(i).getDerecha(), cad, arr, actual, ji++);
             ji--;
         }
         if (padre != null) {

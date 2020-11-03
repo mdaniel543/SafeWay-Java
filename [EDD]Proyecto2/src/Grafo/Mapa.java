@@ -58,7 +58,7 @@ public class Mapa extends MapView {
         System.out.println("Marcador Agregado");
         return marcador;
     }
-
+    
     public void agregarLinea(LatLng inicio, LatLng fin, boolean marcador) {
         LatLng[] linea = {inicio, fin};
         Polyline pl = new Polyline(map);

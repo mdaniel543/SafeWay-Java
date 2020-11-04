@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -259,6 +260,7 @@ public class ArbolB<T extends Comparable<T>, V> {
                     System.out.println("Inicio: " + usu.getInicio());
                     System.out.println("Fin: " + usu.getFin());
                     System.out.println(usu.getFecha());
+
                     ImprimirV(actual.get(i).getIzquierda(), arr);
                     ImprimirV(actual.get(i).getDerecha(), arr);
 
@@ -267,6 +269,45 @@ public class ArbolB<T extends Comparable<T>, V> {
                 }
             }
         }
+    }
+
+    private ArrayList<Factura> fact;
+
+    public void Facturas(int id, boolean vi) {
+        fact = new ArrayList<>();
+        Facturas(this.raiz, id, new ArrayList<>(), vi);
+    }
+
+    private void Facturas(Pagina actual, int id, ArrayList<Pagina> arr, boolean vi) {
+        if (actual != null) {
+            if (arr.contains(actual)) {
+                arr.remove(actual);
+                return;
+            } else {
+                arr.add(actual);
+            }
+            for (int i = 0; i < actual.getMax(); i++) {
+                if (actual.get(i) != null) {
+                    if (vi) {
+                        if (id == ((Factura) actual.get(i).getValor()).getId_usuario()) {
+                            fact.add((Factura) actual.get(i).getValor());
+                        }
+                    } else {
+                        if (id == ((Factura) actual.get(i).getValor()).getId_conductor()) {
+                            fact.add((Factura) actual.get(i).getValor());
+                        }
+                    }
+                    Facturas(actual.get(i).getIzquierda(), id, arr, vi);
+                    Facturas(actual.get(i).getDerecha(), id, arr, vi);
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    public ArrayList<Factura> getFactura() {
+        return fact;
     }
 
     public void ImprimirF() {
@@ -286,11 +327,11 @@ public class ArbolB<T extends Comparable<T>, V> {
                 if (actual.get(i) != null) {
                     Factura usu = (Factura) actual.get(i).getValor();
                     System.out.println("");
-                    System.out.println(usu.getId());
-                    System.out.println(usu.getId_usuario());
-                    System.out.println(usu.getId_conductor());
-                    System.out.println(usu.getId_viaje());
-                    System.out.println(usu.getMonto());
+                    System.out.println("ID: " + usu.getId());
+                    System.out.println("ID Usuario " + usu.getId_usuario());
+                    System.out.println("Id conductor " + usu.getId_conductor());
+                    System.out.println("Id viaje " + usu.getId_viaje());
+                    System.out.println("Precio " + usu.getMonto());
                     System.out.println(usu.getFecha());
                     ImprimirF(actual.get(i).getIzquierda(), arr);
                     ImprimirF(actual.get(i).getDerecha(), arr);
@@ -330,7 +371,6 @@ public class ArbolB<T extends Comparable<T>, V> {
                     }
                 }
             }
-            return regreso;
         }
         return null;
     }
@@ -382,15 +422,16 @@ public class ArbolB<T extends Comparable<T>, V> {
     public String[] colores = {"cadetblue", "darkorchid", "mediumseagreen", "palegreen1", "dodgerblue3", "gold1", "indigo",
         "red", "blue", "yellow", "deeppink2", "cyan1", "gray", "darkseagreen1", "green", "cadetblue1", "darkslategray"};
     int x = colores.length;
+    int y = -1;
 
     public void Graficar(String nombre) {
         StringBuilder s = new StringBuilder();
         s.append("digraph G{\n").append("node[shape=record style=filled]\n");
-        if(nombre.equals("conductor") || nombre.equals("usuario")){
+        if (nombre.equals("conductor") || nombre.equals("usuario")) {
             Graficar(this.raiz, s, new ArrayList<>(), null, 0);
-        }else if(nombre.equals("viaje")){
+        } else if (nombre.equals("viaje")) {
             GraficarV(this.raiz, s, new ArrayList<>(), null, 0);
-        }else if(nombre.equals("factura")){
+        } else if (nombre.equals("factura")) {
             GraficarF(this.raiz, s, new ArrayList<>(), null, 0);
         }
 
@@ -494,7 +535,7 @@ public class ArbolB<T extends Comparable<T>, V> {
             arr.add(actual);
         }
         cad.append("node").append(actual.hashCode()).append("[label = \"");
-        x++;
+        y++;
         boolean enlace = true;
         for (int i = 0; i < actual.getMax(); i++) {
             if (actual.get(i) == null) {
@@ -524,9 +565,9 @@ public class ArbolB<T extends Comparable<T>, V> {
                 }
             }
         }
-        cad.append("\"][fillcolor = \"").append(colores[x]).append("\"]\n");
-        if (x == colores.length - 1) {
-            x = -1;
+        cad.append("\"][fillcolor = \"").append(colores[y]).append("\"]\n");
+        if (y == colores.length - 1) {
+            y = -1;
         }
         int ji = 0;
         for (int i = 0; i < actual.getMax(); i++) {
@@ -555,7 +596,7 @@ public class ArbolB<T extends Comparable<T>, V> {
             arr.add(actual);
         }
         cad.append("node").append(actual.hashCode()).append("[label = \"");
-        x++;
+        y++;
         boolean enlace = true;
         for (int i = 0; i < actual.getMax(); i++) {
             if (actual.get(i) == null) {
@@ -587,9 +628,9 @@ public class ArbolB<T extends Comparable<T>, V> {
                 }
             }
         }
-        cad.append("\"][fillcolor = \"").append(colores[x]).append("\"]\n");
-        if (x == colores.length - 1) {
-            x = -1;
+        cad.append("\"][fillcolor = \"").append(colores[y]).append("\"]\n");
+        if (y == colores.length - 1) {
+            y = -1;
         }
         int ji = 0;
         for (int i = 0; i < actual.getMax(); i++) {

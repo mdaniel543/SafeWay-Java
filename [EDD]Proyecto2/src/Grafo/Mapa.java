@@ -36,13 +36,13 @@ public class Mapa extends MapView {
                     mapOptions.setMapTypeControlOptions(mt);
                     map.setOptions(mapOptions);
                     map.setCenter(new LatLng(14.561049, -90.532655));
-                    map.setZoom(20);
+                    map.setZoom(15);
                 }
             }
         });
         System.out.println("Esperando a que se genere el mapa...");
         try {
-            for (int i = 1; i < 4; i++) {
+            for (int i = 1; i < 6; i++) {
                 TimeUnit.SECONDS.sleep(1);
                 System.out.print(i + ". ");
             }

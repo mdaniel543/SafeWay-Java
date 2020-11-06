@@ -67,7 +67,11 @@ public class Camino {
         }
         System.out.println("]");
     }
-
+    
+    public boolean VerificarCamino(int destino){
+        return D[destino] != Double.POSITIVE_INFINITY;
+    }
+    
     private int minimo() {
         double mx = Double.POSITIVE_INFINITY;
         int v = 1;
@@ -78,7 +82,7 @@ public class Camino {
             }
         }
         return v;
-    }
+    }   
     public int CaminoMostrado(int v, int i) {
         i++;
         int anterior = ultimo[v];
@@ -135,5 +139,4 @@ public class Camino {
         }
         System.out.println("]");
     }
-
 }

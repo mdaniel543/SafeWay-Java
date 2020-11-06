@@ -238,6 +238,7 @@ public class Travel extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         setVisible(false);
+        new Place().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -271,6 +272,7 @@ public class Travel extends javax.swing.JFrame {
         System.out.println("////////////////////////////////////////////////");
         System.out.println("");
         setVisible(false);
+        new Place().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

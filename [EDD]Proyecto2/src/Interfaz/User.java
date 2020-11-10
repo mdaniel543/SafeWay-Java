@@ -406,7 +406,7 @@ public class User extends javax.swing.JFrame {
             Object df = modelo.getValueAt(fila, 0);
             System.out.println("Viaje " + df);
             Viaje f = (Viaje) viaje.Buscar(Integer.parseInt(df.toString())).getValor();
-            JOptionPane.showMessageDialog(null, "ORIGEN del Viaje: " + f.getInicio() + "\n\nDESTINO del Viaje: " + f.getFin() , "INFO VIAJE", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Orige del Viaje: " + f.getInicio() + "\n\nDestino del Viaje: " + f.getFin() , "INFO VIAJE", JOptionPane.INFORMATION_MESSAGE);
             
         } else {
             JOptionPane.showMessageDialog(null, "No se ha seleccionar viaje", "Seleccion", JOptionPane.ERROR_MESSAGE);

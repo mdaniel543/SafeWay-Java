@@ -50,11 +50,11 @@ public class main {
 //            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
-        lectura.Lugares("Lugares.json");
-        lectura.Grafo("Grafo.json");
-        lectura.Usuario("Usuarios.json");
-        lectura.LocalidadUsuario("Localidades Usuarios.json");
-        lectura.LocalidadConductor("Localidades.json");
+//        lectura.Lugares("Lugares.json");
+//        lectura.Grafo("Grafo.json");
+//        lectura.Usuario("Usuarios.json");
+//        lectura.LocalidadUsuario("Localidades Usuarios.json");
+//        lectura.LocalidadConductor("Localidades.json");
 
         new Login().setVisible(true);
 //        new Admin().setVisible(true);

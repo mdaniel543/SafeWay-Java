@@ -16,14 +16,14 @@ import java.io.PrintWriter;
  */
 public class TablaHash {
 
-    static int size = 10;
+    static int Size = 10;
     private int Elementos;
     private double Carga;
     private Lugar[] tabla;
 
     public TablaHash() {
-        tabla = new Lugar[size];
-        for (int j = 0; j < size; j++) {
+        tabla = new Lugar[Size];
+        for (int j = 0; j < Size; j++) {
             tabla[j] = null;
         }
         Elementos = 0;
@@ -35,14 +35,13 @@ public class TablaHash {
         posicion = direccion(n.getNombre());
         tabla[posicion] = n;
         Elementos++;
-        Carga = (double) (Elementos) / size;
+        Carga = (double) (Elementos) / Size;
 
         if (Carga > 0.75) {
 
-            System.out.println("\n!! Factor de carga supera el 75%.!!"
-                    + " Conviene aumentar el tamaño.");
+            System.out.println("\n!! Factor de carga supera el 75%!!");
 
-            int nuevoTamTabla = size;
+            int nuevoTamTabla = Size;
             System.out.println("Antiguo: " + nuevoTamTabla);
             System.out.println("Numero elemento " + Elementos);
             do {
@@ -58,7 +57,7 @@ public class TablaHash {
             Lugar tablaN[] = new Lugar[nuevoTamTabla];
             Lugar antiguo[] = tabla;
             tabla = tablaN;
-            size = nuevoTamTabla;
+            Size = nuevoTamTabla;
 
             int aux = 0;
             for (Lugar e : antiguo) {
@@ -75,7 +74,7 @@ public class TablaHash {
     }
 
     public void mostrarTabla() {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < Size; i++) {
             if (tabla[i] == null) {
                 System.out.println(i + ".");
             } else {
@@ -85,20 +84,20 @@ public class TablaHash {
     }
 
     public int direccion(String clave) {
-        int p, i = 0, cte;
+        int p, i = 0, k;
         int ascii = obtenerAscii(clave);
-        p = (int) (ascii % size);
-        cte = p;
+        p = (int) (ascii % Size);
+        k = p;
         while (tabla[(int) p] != null) {
             i++;
-            p = cte + i;
-            p = p % size;
+            p = k + i;
+            p = p % Size;
         }
         return (int) p;
     }
 
     public Lugar buscar(String nombre) {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < Size; i++) {
             if (tabla[i] != null) {
                 if (tabla[i].getNombre().equals(nombre)) {
                     return tabla[i];
@@ -108,6 +107,20 @@ public class TablaHash {
         return null;
     }
 
+    public Lugar buscarHash(String clave) {
+        int i = 0, c;
+        Lugar pr;
+        int posicion;
+        posicion = direccion(clave);
+        c = posicion;
+        while (tabla[(int) posicion] != null) {
+            i++;
+            posicion = c + i;
+        }
+        pr = tabla[posicion];
+        return pr;
+    }
+
     public int obtenerAscii(String cadena) {
         int valor = 0;
         for (int i = 0; i < cadena.length(); i++) {
@@ -115,17 +128,18 @@ public class TablaHash {
         }
         return valor;
     }
-    
-    public Lugar[] getTabla(){
+
+    public Lugar[] getTabla() {
         return tabla;
     }
-    public int getsize(){
-        return size;
+
+    public int getsize() {
+        return Size;
     }
 
     public void Graficar() {
-        String[] colores = {"red", "blue", "yellow", "deeppink2", "cyan1","gray","darkseagreen1", "green", "cadetblue1", "darkslategray"
-        ,"cadetblue", "darkorchid", "mediumseagreen", "palegreen1", "dodgerblue3", "gold1", "indigo"};
+        String[] colores = {"red", "blue", "yellow", "deeppink2", "cyan1", "gray", "darkseagreen1", "green", "cadetblue1", "darkslategray",
+            "cadetblue", "darkorchid", "mediumseagreen", "palegreen1", "dodgerblue3", "gold1", "indigo"};
         StringBuilder cad = new StringBuilder();
         cad.append("digraph g{\n");
         cad.append("node[shape=record fontsize=18, fontname=chiller];\n");
@@ -136,7 +150,7 @@ public class TablaHash {
         for (Lugar t : this.tabla) {
             if (a == 5) {
                 j++;
-                cad.append(t != null ? t.getNombre() : "").append("\"][color=").append(colores[j]).append("];\n");
+                cad.append(t != null ? "{" + t.getId()+ "|" + t.getNombre() + "}" : "").append("\"][color=").append(colores[j]).append("];\n");
                 a = 1;
                 n++;
                 if (j == colores.length - 1) {
@@ -147,10 +161,10 @@ public class TablaHash {
                     break;
                 }
                 cad.append("node").append(n).append("[label=\"");
-                
+
                 continue;
             } else {
-                cad.append(t != null ? t.getNombre() : "").append("|");
+                cad.append(t != null ? "{" + t.getId() + "|" + t.getNombre() + "}" : "").append("|");
             }
             a++;
             contador++;
@@ -166,7 +180,7 @@ public class TablaHash {
         System.out.println(cad.toString());
         GuardarTabla(cad);
     }
-    
+
     public void GuardarTabla(StringBuilder sc) {
         FileWriter fichero = null;
         PrintWriter pw = null;

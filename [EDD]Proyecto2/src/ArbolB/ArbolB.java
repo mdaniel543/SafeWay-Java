@@ -120,10 +120,10 @@ public class ArbolB<T extends Comparable<T>, V> {
                     for (int i = 0; i < k; i++) {
                         if (derecho.get(i) != null) {
                             if (derecho.get(i).getIzquierda() != null) {
-                                derecho.get(i).getIzquierda().setPaginaPadre(izquierdo);
+                                derecho.get(i).getIzquierda().setPaginaPadre(derecho);
                             }
                             if (derecho.get(i).getDerecha() != null) {
-                                derecho.get(i).getDerecha().setPaginaPadre(izquierdo);
+                                derecho.get(i).getDerecha().setPaginaPadre(derecho);
                             }
                         }
                     }
@@ -141,7 +141,7 @@ public class ArbolB<T extends Comparable<T>, V> {
                                     indiceizquierdaraiz++;
                                     node.put(i, null);
                                 } else if (node.get(i).compareTo(llavecentralraiz.getKey()) > 0) {
-                                    derechaRaiz.put(indiceizquierdaraiz, node.get(i));
+                                    derechaRaiz.put(indicederecharaiz, node.get(i));
                                     indicederecharaiz++;
                                     node.put(i, null);
                                 }
@@ -426,13 +426,23 @@ public class ArbolB<T extends Comparable<T>, V> {
 
     public void Graficar(String nombre) {
         StringBuilder s = new StringBuilder();
+        if (raiz.get(0) == null) {
+            return;
+        }
         s.append("digraph G{\n").append("node[shape=record style=filled]\n");
-        if (nombre.equals("conductor") || nombre.equals("usuario")) {
-            Graficar(this.raiz, s, new ArrayList<>(), null, 0);
-        } else if (nombre.equals("viaje")) {
-            GraficarV(this.raiz, s, new ArrayList<>(), null, 0);
-        } else if (nombre.equals("factura")) {
-            GraficarF(this.raiz, s, new ArrayList<>(), null, 0);
+        switch (nombre) {
+            case "conductor":
+            case "usuario":
+                Graficar(this.raiz, s, new ArrayList<>(), null, 0);
+                break;
+            case "viaje":
+                GraficarV(this.raiz, s, new ArrayList<>(), null, 0);
+                break;
+            case "factura":
+                GraficarF(this.raiz, s, new ArrayList<>(), null, 0);
+                break;
+            default:
+                break;
         }
 
         s.append("}");

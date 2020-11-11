@@ -123,19 +123,19 @@ public class ReadJson {
                 JSONObject jsonNumber = (JSONObject) l;
                 if (!jsonNumber.isEmpty()) {
                     int id = Integer.parseInt(jsonNumber.get("id").toString());
-                    //System.out.println(id);
+                    System.out.println(id);
                     String nombre = (String) jsonNumber.get("nombre");
-                    //System.out.println(nombre);
+                    System.out.println(nombre);
                     String usuario = (String) jsonNumber.get("usuario");
-                    //System.out.println(usuario);
+                    System.out.println(usuario);
                     String correo = (String) jsonNumber.get("correo");
-                    //System.out.println(correo);
+                    System.out.println(correo);
                     String pass = (String) jsonNumber.get("pass");
-                    //System.out.println(pass);
+                    System.out.println(pass);
                     String telefono = (String) jsonNumber.get("telefono");
-                    //System.out.println(telefono);
+                    System.out.println(telefono);
                     String rol = (String) jsonNumber.get("rol");
-                    //System.out.println(rol);
+                    System.out.println(rol);
                     String encriptacion = SHA.getSHA256(pass);
                     if ("normal".equals(rol)) {
                         normal.insertar(id, new Usuario(id, nombre, usuario, correo, encriptacion, telefono, rol));

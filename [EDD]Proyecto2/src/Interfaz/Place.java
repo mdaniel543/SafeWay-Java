@@ -278,9 +278,14 @@ public class Place extends javax.swing.JFrame {
                 minimo.Ordenar();
                 HacerCaminoMuestra(en, destino);
                 piloto = graf.VerticeCercano();
-                System.out.println(piloto.getUsuario());
-                jButton3.setVisible(true);
-            }else{
+                if (piloto == null) {
+                    JOptionPane.showMessageDialog(null, "Se muestra ruta, pero no se puede hacer el viaje \nNo hay conductores disponibles", "Piloto", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    System.out.println(piloto.getUsuario());
+                    jButton3.setVisible(true);
+                }
+
+            } else {
                 JOptionPane.showMessageDialog(null, "NO SE PUEDE LLEGAR AL DESTINO", "Seleccion", JOptionPane.ERROR_MESSAGE);
             }
         } else {

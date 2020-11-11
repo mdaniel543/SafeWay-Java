@@ -146,15 +146,15 @@ public class TablaHash {
         int a = 1, n = 0, contador = 0;
         cad.append("node").append(n).append("[label=\"");
         boolean termino = false;
-        int j = -1;
+        int y = -1;
         for (Lugar t : this.tabla) {
-            if (a == 5) {
-                j++;
-                cad.append(t != null ? "{" + t.getId()+ "|" + t.getNombre() + "}" : "").append("\"][color=").append(colores[j]).append("];\n");
+            if (a == 6) {
+                y++;
+                cad.append(t != null ? "{" + t.getId()+ "|" + t.getNombre() + "}" : "").append("\"][color=").append(colores[y]).append("];\n");
                 a = 1;
                 n++;
-                if (j == colores.length - 1) {
-                    j = -1;
+                if (y == colores.length - 1) {
+                    y = -1;
                 }
                 if (contador == Elementos - 1) {
                     termino = true;

@@ -579,9 +579,13 @@ public class Admin extends javax.swing.JFrame {
         normal.Graficar("usuario");
         Desktop ficheroAEjecutar = Desktop.getDesktop();
         try {
+            for (int i = 1; i < 3; i++) {
+                TimeUnit.SECONDS.sleep(1);
+                System.out.print(i + ". ");
+            }
             ficheroAEjecutar.open(new File("usuario.pdf"));
-        } catch (IOException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (Exception e) {
+            System.out.println("Hubo un error con el delay");
         }
     }//GEN-LAST:event_jButton15ActionPerformed
 
@@ -589,9 +593,13 @@ public class Admin extends javax.swing.JFrame {
         conductor.Graficar("conductor");
         Desktop ficheroAEjecutar = Desktop.getDesktop();
         try {
+            for (int i = 1; i < 3; i++) {
+                TimeUnit.SECONDS.sleep(1);
+                System.out.print(i + ". ");
+            }
             ficheroAEjecutar.open(new File("conductor.pdf"));
-        } catch (IOException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            System.out.println("Hubo un error con el delay");
         }
     }//GEN-LAST:event_jButton16ActionPerformed
 
@@ -613,9 +621,13 @@ public class Admin extends javax.swing.JFrame {
         Tabla.Graficar();
         Desktop ficheroAEjecutar = Desktop.getDesktop();
         try {
+            for (int i = 1; i < 3; i++) {
+                TimeUnit.SECONDS.sleep(1);
+                System.out.print(i + ". ");
+            }
             ficheroAEjecutar.open(new File("TablaHash.pdf"));
-        } catch (IOException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            System.out.println("Hubo un error con el delay");
         }
     }//GEN-LAST:event_jButton17ActionPerformed
 

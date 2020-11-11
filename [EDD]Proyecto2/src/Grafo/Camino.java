@@ -32,7 +32,7 @@ public class Camino {
         ultimo = new int[n];
         D = new double[n];
         arreglo = new double[n];
-        F = new boolean[n];     
+        F = new boolean[n];
         c = -1;
     }
 
@@ -67,11 +67,11 @@ public class Camino {
         }
         System.out.println("]");
     }
-    
-    public boolean VerificarCamino(int destino){
+
+    public boolean VerificarCamino(int destino) {
         return D[destino] != Double.POSITIVE_INFINITY;
     }
-    
+
     private int minimo() {
         double mx = Double.POSITIVE_INFINITY;
         int v = 1;
@@ -82,7 +82,8 @@ public class Camino {
             }
         }
         return v;
-    }   
+    }
+
     public int CaminoMostrado(int v, int i) {
         i++;
         int anterior = ultimo[v];
@@ -95,28 +96,39 @@ public class Camino {
         }
         return i;
     }
-    
-    public int[] ArregloCamino(int v) { 
+
+    public int[] ArregloCamino(int v) {
         int anterior = ultimo[v];
         if (v != s) {
-            ArregloCamino(anterior); 
-            c++;  
+            ArregloCamino(anterior);
+            c++;
             vertices[c] = v;
         } else {
             c++;
-            vertices[c] = s; 
+            vertices[c] = s;
         }
         return vertices;
     }
-
     public int conductorCerca() {
         for (int j : descartados) {
             System.out.println(j + " soy yo de nuevo");
         }
         for (int i = 0; i < arreglo.length; i++) {
             if (!descartados.contains(i)) {
+                int j = RetornoPosicion(arreglo[i]);
                 descartados.add(i);
-                return i;
+                return j;
+            }
+        }
+        return -1;
+    }
+
+    public int RetornoPosicion(double x) {
+        for (int i = 0; i < D.length; i++) {
+            if (x == D[i]) {
+                if (D[i] != Double.POSITIVE_INFINITY) {
+                    return i;
+                } 
             }
         }
         return -1;
